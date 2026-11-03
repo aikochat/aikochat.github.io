@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#292448">
+  <meta name="description" content="AIKO Gaming, ton coach IA pour tous les jeux, toutes les plateformes et tous les niveaux.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AIKO">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./aiko-avatar.jpg">
+  <link rel="icon" type="image/svg+xml" href="./aiko-avatar.jpg">
+  <link rel="stylesheet" href="./styles.css">
+  <title>AIKO Gaming ✦ Ton copilote gamer</title>
+</head>
+<body>
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-brand"><img src="./aiko-avatar.jpg" alt="AIKO"><div><strong>AIKO</strong><span>ton copilote gaming</span></div></div>
+      <div class="auth-illustration">✦ ♡ ✧</div>
+      <h1 id="auth-title">Prêt à lancer la partie ?</h1>
+      <p id="auth-description">Entre ton pseudo et ton code secret pour retrouver ton espace.</p>
+      <form id="auth-form" class="auth-form">
+        <label for="auth-name">Ton pseudo</label>
+        <input id="auth-name" type="text" autocomplete="username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_-]{3,20}" placeholder="Ex. Senpai_01" required>
+        <label for="auth-password">Ton code secret</label>
+        <input id="auth-password" type="password" autocomplete="current-password" minlength="8" maxlength="64" placeholder="8 caractères minimum" required>
+        <label id="auth-confirm-label" for="auth-confirm" class="hidden">Confirme ton code</label>
+        <input id="auth-confirm" class="hidden" type="password" autocomplete="new-password" minlength="8" maxlength="64" placeholder="Retape ton code secret">
+        <button id="auth-submit" class="primary-button" type="submit">Se connecter</button>
+      </form>
+      <p class="auth-switch"><span id="auth-switch-copy">Pas encore de pseudo ?</span> <button id="auth-switch" type="button">Créer mon accès</button></p>
+      <p id="auth-message" class="auth-message" role="status"></p>
+      <p class="auth-privacy">Aucune adresse e-mail demandée. Garde ton code secret précieusement : il n'existe pas de récupération par e-mail.</p>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="side-brand"><img src="./aiko-avatar.jpg" alt=""><div><b>AIKO</b><small>GAMING AI COMPANION</small></div><button id="sidebar-close" class="sidebar-close" type="button" aria-label="Fermer le menu">×</button></div>
+      <button id="new-chat" class="new-chat-button"><span>＋</span> Nouvelle discussion</button>
+      <div class="side-section-title">TON HISTORIQUE</div>
+      <nav id="conversation-list" class="conversation-list" aria-label="Historique des discussions"></nav>
+      <div class="sidebar-bottom">
+        <button id="create-persona-open" class="side-action"><span>✧</span> Créer une personnalité</button>
+        <div class="user-card"><div class="user-avatar" id="user-avatar">♡</div><div class="user-details"><strong id="user-name">Mon compte</strong><small id="user-email"></small></div><button id="sign-out" class="sign-out" title="Se déconnecter" aria-label="Se déconnecter">↪</button></div>
+      </div>
+    </aside>
+    <button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="Fermer le menu"></button>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <button id="menu-toggle" class="mobile-menu" aria-label="Ouvrir le menu">☰</button>
+        <div class="topbar-title"><span class="online-dot"></span><span id="topbar-persona">AIKO</span></div>
+        <div class="topbar-actions">
+          <button id="settings-open" class="settings-button" title="Paramètres" aria-label="Paramètres">⚙</button>
+        </div>
+      </header>
+
+      <section class="chat-heading">
+        <div class="heading-orbit">✦</div>
+        <h1 id="chat-title">Bienvenue dans la game room</h1>
+        <p id="chat-subtitle">Stratégie, builds, boss, réglages ou simple discussion entre gamers.</p>
+      </section>
+      <div class="gaming-profile-toggle"><button id="toggle-gaming-profile" type="button" aria-expanded="false">🎮 Contexte de jeu <span id="gaming-profile-summary">Tous les jeux</span><span class="profile-chevron">⌄</span></button></div>
+      <section class="gaming-toolbar hidden" id="gaming-toolbar" aria-label="Ton profil de jeu"><div class="game-field"><label for="game-platform">PLATEFORME</label><select id="game-platform"><option>PC</option><option>PlayStation</option><option>Xbox</option><option>Nintendo Switch</option><option>Mobile</option><option>Cloud Gaming</option><option>Autre</option></select></div><div class="game-field game-name-field"><label for="game-name">JEU DU MOMENT</label><input id="game-name" maxlength="60" placeholder="Ex. Fortnite, Minecraft, Elden Ring…"></div><span class="game-status">✦ Tous les jeux, tous les niveaux</span></section>
+
+      <section id="coding-workspace" class="coding-workspace hidden"><div class="workspace-head"><div><b>⌨️ Atelier de code</b><small>Écris, modifie et garde tes fichiers sur cet appareil.</small></div><div class="workspace-actions"><input id="workspace-filename" value="main.py" aria-label="Nom du fichier"><button id="workspace-open" type="button">Ouvrir</button><button id="workspace-save" type="button">Enregistrer</button><button id="workspace-download" type="button">Exporter</button></div></div><textarea id="workspace-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="// Ton code ici..."></textarea><p id="workspace-status">Les modifications restent dans ton espace de travail local. Exporte le fichier pour l’utiliser dans ton projet.</p></section>
+      <div class="mode-switch"><button id="mode-chat" class="mode-button active" type="button">💬 Chat gamer</button><button id="mode-code" class="mode-button" type="button">⌨️ Mode codage</button></div>
+      <section id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Messages"></section>
+      <div id="typing-indicator" class="typing-indicator hidden"><img src="./aiko-avatar.jpg" alt=""><span>Aiko réfléchit</span><i></i><i></i><i></i></div>
+      <p class="composer-note">Ton copilote gaming · PC · PlayStation · Xbox · Switch · Mobile</p>
+      <form id="composer" class="composer">
+        <button id="image-create-button" class="image-create-button" type="button" title="Créer une image" aria-label="Créer une image">🎨</button>
+        <textarea id="prompt" rows="1" maxlength="3000" placeholder="Demande une strat, un build, une astuce… ou parle gaming" aria-label="Ton message"></textarea>
+        <button id="send-button" type="submit" aria-label="Envoyer le message">➤</button>
+      </form>
+      
+    </main>
+  </div>
+
+  <div id="persona-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="persona-modal-title">
+    <div class="modal-card">
+      <button class="modal-close" data-close="persona-modal" aria-label="Fermer">×</button>
+      <div class="modal-kicker">✧ PERSONNALITÉ SUR MESURE</div>
+      <h2 id="persona-modal-title">Imagine ta propre Aiko</h2>
+      <p>Décris son caractère et sa façon de te répondre.</p>
+      <form id="persona-form" class="stack-form">
+        <label for="persona-name">Nom</label><input id="persona-name" maxlength="40" required placeholder="Ex. Hikari">
+        <label for="persona-description">Petite description</label><input id="persona-description" maxlength="240" placeholder="Une amie calme et passionnée de science">
+        <label for="persona-prompt">Comportement et ton</label><textarea id="persona-prompt" maxlength="2000" rows="4" required placeholder="Tu es curieuse, bienveillante, drôle…"></textarea>
+        <button class="primary-button" type="submit">Créer ma personnalité</button>
+      </form>
+      <p id="persona-message" class="auth-message" role="status"></p>
+    </div>
+  </div>
+
+  <div id="settings-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal-card">
+      <button class="modal-close" data-close="settings-modal" aria-label="Fermer">×</button>
+      <div class="modal-kicker">✧ TON ESPACE</div><h2 id="settings-title">Paramètres</h2>
+      <div class="settings-row"><div><b>Compte</b><small id="settings-account"></small></div><button id="settings-signout" class="secondary-button">Déconnexion</button></div>
+      <div class="settings-row"><div><b>Couleur des contours</b><small>Choisis la couleur du néon et des bordures.</small></div><input id="accent-color" type="color" value="#a855f7" aria-label="Couleur des contours"></div>
+      <div class="settings-row"><div><b>Intensité du néon</b><small>Règle la luminosité des contours.</small></div><input id="accent-glow" type="range" min="0" max="30" value="12" aria-label="Intensité du néon"></div>
+      <div class="settings-row"><div><b>Personnalités</b><small>Gère tes personnalités personnalisées depuis le menu latéral.</small></div><button id="settings-persona" class="secondary-button">Créer</button></div>
+      <p class="settings-footnote">AIKO est une application en développement. Tes données sont associées à ton compte Supabase.</p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
