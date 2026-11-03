@@ -53,7 +53,7 @@ function showApp() {
 function setAuthMode(mode) {
   authMode = mode;
   const signup = mode === "signup";
-  $("#auth-title").textContent = signup ? "Crée ton petit espace !" : "Bon retour, senpai !";
+  $("#auth-title").textContent = signup ? "Crée ton petit espace !" : "Bon retour, golmon";
   $("#auth-description").textContent = signup
     ? "Choisis un pseudo et un code secret pour commencer."
     : "Entre ton pseudo et ton code secret pour retrouver tes discussions.";
